@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Icon Replacer Pro</title>
+        <style>
+            body {
+                background: linear-gradient(
+                    0deg,
+                    rgba(21, 19, 28, 1) 0%,
+                    rgba(29, 26, 39, 1) 100%
+                );
+                color: #ffffff;
+                font-family: Arial, sans-serif;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+                margin: 0;
+            }
+
+            h1 {
+                font-size: 2em;
+                margin-bottom: 0.5em;
+            }
+
+            p {
+                margin-bottom: 1em;
+            }
+
+            input,
+            select,
+            button {
+                margin-bottom: 1em;
+                padding: 0.5em;
+                font-size: 1em;
+            }
+
+            button {
+                background-color: #61dafb;
+                border: none;
+                color: #282c34;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+            button:hover {
+                background-color: #b3ddfb;
+            }
+
+            a {
+                color: #617dfb;
+            }
+
+            #uploadInput {
+                display: none;
+            }
+
+            label {
+                display: inline-block;
+                padding: 0.5em;
+                background-color: #61dafb;
+                color: #282c34;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+            label:hover {
+                background-color: #b3ddfb;
+            }
+
+            form {
+                text-align: center;
+            }
+        </style>
+        <script>
+            function updateFileName() {
+                var input = document.getElementById("uploadInput");
+                var fileName = document.getElementById("fileName");
+                fileName.textContent = input.files[0].name;
+            }
+        </script>
+    </head>
+
+    <body>
+        <h1>Icon Replacer Pro</h1>
+        <p>A tool to add custom GD icons into the game.</p>
+        <form action="/iconify" method="post" enctype="multipart/form-data">
+            <label for="uploadInput">Choose an image</label>
+            <input
+                type="file"
+                id="uploadInput"
+                name="image"
+                accept="image/*"
+                required
+                onchange="updateFileName()"
+            />
+            <span id="fileName"></span>
+            <br />
+            <br />
+            <button type="submit">Replace!</button>
+        </form>
+        <br />
+        <br />
+        <p>
+            Once you get the files, go to
+            <code
+                >C:\Program Files (x86)\Steam\steamapps\common\Geometry
+                Dash\Resources\icons</code
+            >
+            and place the images into that folder.
+        </p>
+    </body>
+</html>
