@@ -10,7 +10,6 @@
   "license": "MIT",
   "dependencies": {
     "archiver": "^7.0.1",
-    "canvas": "^2.11.2",
     "express": "^4.19.2",
     "multer": "1.4.5-lts.1",
     "sharp": "^0.33.4"
