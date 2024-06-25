@@ -15,6 +15,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.post('/iconify', upload.single('image'), (req, res) => {
     const inputFile = req.file.path;
+    // Assuming "colorable" is sent as a part of the form data and is a boolean
+    const isColorable = req.body.colorable === 'true'; // Convert string to boolean
 
     const archive = archiver('zip');
     res.attachment('icons.zip');
@@ -28,11 +30,12 @@ app.post('/iconify', upload.single('image'), (req, res) => {
     ];
 
     const promises = sizes.map(({ size, name, layer, top, left }) => {
-        return sharp(inputFile)
-            .resize(size, size)
-            .modulate({ brightness: 2 }) // Increase brightness by 100%
-            .toColourspace('b-w') // Increase contrast by converting to black and white
-            .toBuffer()
+        let sharpProcess = sharp(inputFile).resize(size, size);
+        if (isColorable) {
+            // Only modify the image if isColorable is true
+            sharpProcess = sharpProcess.modulate({ brightness: 2 }).toColourspace('b-w');
+        }
+        return sharpProcess.toBuffer()
             .then((inputBuffer) => {
                 return sharp(layer)
                     .composite([
